@@ -6,7 +6,7 @@ const gangSeo = document.querySelector('.gangSeo');
 const resultCon = document.querySelector('.resultCon');
 const srch = document.querySelector('.searchInput');
 const srchIcon = document.querySelector('.fa-magnifying-glass');
-const apiKey = `69434344756c6169313034547156706e`;
+const apiKey = process.env.API_KEY;
 const totPage = 1;
 const libNum = 206;
 let totalResults = 0;
@@ -50,19 +50,20 @@ const regionFunc = (element, codes) => {
   });
 };
 const fetchLibrary = async (page) => {
-  const apiUrl = new URL(
-    `http://openapi.seoul.go.kr:8088/${apiKey}/json/SeoulPublicLibraryInfo/${totPage}/${libNum}/`
-  );
+  const apiUrl = new URL(`http://localhost:8000/api/libraries?page=${page}`);
   apiUrl.searchParams.append('pageSize', pageSize);
-  apiUrl.searchParams.append('page', page);
+
   const response = await fetch(apiUrl);
   const data = await response.json();
+
   filteredLibList = data.SeoulPublicLibraryInfo.row;
   totalResults = data.SeoulPublicLibraryInfo.list_total_count;
+
   filterGangNam = fetchData(filteredLibList, codesGangNam);
   filterGangBuk = fetchData(filteredLibList, codesGangBuk);
   filterGangDong = fetchData(filteredLibList, codesGangDong);
   filterGangSeo = fetchData(filteredLibList, codesGangSeo);
+
   switch (currentFilter) {
     case codesGangNam:
       displayLib(pagiBtn(filterGangNam, page, pageSize));
