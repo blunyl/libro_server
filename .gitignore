@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+logs/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Build and cache folders
+.cache/
+dist/
+build/
+
+# IDE settings
+.vscode/
+
+*.swp
+.bash_profile
+.gitconfig
+.history
